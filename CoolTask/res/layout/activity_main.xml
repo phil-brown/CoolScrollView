@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/marshall"
         android:adjustViewBounds="true"
+        android:alpha="0"
         android:scaleType="fitStart" />
 	<self.philbrown.cooltask.CoolScrollView 
 	    android:id="@+id/scrollview"
@@ -29,16 +30,22 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:background="#ffffff"
+	            android:textIsSelectable="true"
+        		android:alpha="0"
 	            android:text="@string/lorem_ipsum" />
 	        <TextView 
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:background="#ffffff"
+	            android:textIsSelectable="true"
+        		android:alpha="0"
 	            android:text="@string/lorem_ipsum" />
 	        <TextView 
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:background="#ffffff"
+	            android:textIsSelectable="true"
+        		android:alpha="0"
 	            android:text="@string/lorem_ipsum" />
 	    </LinearLayout>
 	</self.philbrown.cooltask.CoolScrollView>

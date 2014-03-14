@@ -16,8 +16,14 @@
 
 package self.philbrown.cooltask;
 
+import java.util.Random;
+
+import self.philbrown.droidQuery.$;
+import self.philbrown.droidQuery.AnimationOptions;
+import self.philbrown.droidQuery.Function;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 /**
  * Activity for showing a ScrollView similar to that in the <a href="http://drippler.com/">Drippler</a> app for Android.
@@ -34,6 +40,15 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		final $ image = $.with(this, R.id.image);
+		image.animate("{alpha:1.0}", new AnimationOptions().complete(new Function() {
+			
+			@Override
+			public void invoke($ d, Object... args) {
+				d.parent().selectByType(TextView.class).animate("{alpha:1.0}", 
+						new AnimationOptions().duration(new Random().nextInt(2000)));
+			}
+		}));
 	}
 
 }

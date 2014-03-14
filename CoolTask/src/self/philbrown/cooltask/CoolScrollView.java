@@ -26,6 +26,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 /**
  * This custom ScrollView contains a LinearLayout with an transparent view as the first view. Scrolling the view causes this
@@ -113,15 +114,18 @@ public class CoolScrollView extends ScrollView
 			{
 				$ d = $.with(getContext(), R.id.transparent_region);
 				int factor = (int) Math.abs(deltaY);
-				int divisor = (size.y/d.height());
+				float divisor = (size.y/d.height());
 				if (divisor == 0)
-					divisor = 1;
-				factor = factor/divisor;
+					divisor = 0.1f;
+				factor = (int) (factor/divisor);
 				//TODO slow down - only allow up to almost the size of the image.
 				d.height(d.height() + factor);
 				
 				$ img = $.with(getContext(), R.id.image);
 				img.width(img.width()+factor).height(img.height()+factor);
+				
+				//adding effect to textviews
+				$.with(getContext()).selectByType(TextView.class).animate("{alpha:"+ (1f/(float)divisor)+"}", new AnimationOptions().debug(true));
 			}
 			else
 			{
@@ -138,8 +142,9 @@ public class CoolScrollView extends ScrollView
 	 */
 	private void reset()
 	{
-		$.with(getContext(), R.id.transparent_region).animate("{height:200dp}", new AnimationOptions());
-		$.with(getContext(), R.id.image).animate("{width:"+size.x+", height:"+size.y+"}", new AnimationOptions().debug(true));
+		$.with(getContext(), R.id.transparent_region).animate("{height:200dp}", new AnimationOptions().easing($.Easing.DECELERATE));
+		$.with(getContext()).selectByType(TextView.class).animate("{alpha:1.0}", new AnimationOptions().debug(true));
+		$.with(getContext(), R.id.image).animate("{width:"+size.x+", height:"+size.y+"}", new AnimationOptions().debug(true).easing($.Easing.DECELERATE));
 	}
 
 }

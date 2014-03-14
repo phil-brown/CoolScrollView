@@ -1,8 +1,6 @@
 CoolScrollView
 ----------
 
-## Intro
-
 This is a simple app that demos a clone of the `ScrollView` used in the [Drippler`](http://drippler.com/) application for Android.
 
 ## License
