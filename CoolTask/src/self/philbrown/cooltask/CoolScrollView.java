@@ -38,27 +38,46 @@ import android.widget.TextView;
  */
 public class CoolScrollView extends ScrollView
 {
-	private static final String TAG = "CoolScrollView";
-	
+	/** {@code true} if the fling motion has been detected. Otherwise {@code false}. */
 	private boolean hasFlung;
-	private final float imageMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics());
+	/** Keeps track of the screen dimensions. */
 	private Point size = new Point();
 	
+	/**
+	 * Constructor
+	 * @param context
+	 */
 	public CoolScrollView(Context context) {
 		super(context);
 		initialize(context, null);
 	}
 
+	/**
+	 * Constructor
+	 * @param context
+	 * @param attrs
+	 */
 	public CoolScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initialize(context, attrs);
 	}
 
+	/**
+	 * Constructor
+	 * @param context
+	 * @param attrs
+	 * @param defStyle
+	 */
 	public CoolScrollView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initialize(context, attrs);
 	}
 	
+	/**
+	 * Initialize the view and its variables
+	 * @param context 
+	 * @param attrs used to handle custom attributes
+	 */
 	protected void initialize(Context context, AttributeSet attrs)
 	{
 		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -104,10 +123,6 @@ public class CoolScrollView extends ScrollView
 	@Override
 	protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent)
 	{
-		//deltaY contains the overscroll value that can be used for the animation.
-		
-		//Log.i(TAG, "scrollRangeY = " + scrollRangeY);
-		
 		if (isTouchEvent)
 		{
 			if (scrollY <= 0)
@@ -118,7 +133,7 @@ public class CoolScrollView extends ScrollView
 				if (divisor == 0)
 					divisor = 0.1f;
 				factor = (int) (factor/divisor);
-				//TODO slow down - only allow up to almost the size of the image.
+				//FIXME slow down - only allow up to almost the size of the image.
 				d.height(d.height() + factor);
 				
 				$ img = $.with(getContext(), R.id.image);
@@ -143,8 +158,8 @@ public class CoolScrollView extends ScrollView
 	private void reset()
 	{
 		$.with(getContext(), R.id.transparent_region).animate("{height:200dp}", new AnimationOptions().easing($.Easing.DECELERATE));
-		$.with(getContext()).selectByType(TextView.class).animate("{alpha:1.0}", new AnimationOptions().debug(true));
-		$.with(getContext(), R.id.image).animate("{width:"+size.x+", height:"+size.y+"}", new AnimationOptions().debug(true).easing($.Easing.DECELERATE));
+		$.with(getContext()).selectByType(TextView.class).animate("{alpha:1.0}", new AnimationOptions());
+		$.with(getContext(), R.id.image).animate("{width:"+size.x+", height:"+size.y+"}", new AnimationOptions().easing($.Easing.DECELERATE));
 	}
 
 }
